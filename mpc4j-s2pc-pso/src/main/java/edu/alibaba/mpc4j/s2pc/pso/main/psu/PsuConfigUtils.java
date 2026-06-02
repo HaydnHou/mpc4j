@@ -13,6 +13,7 @@ import edu.alibaba.mpc4j.s2pc.pso.psu.PsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.PsuFactory.PsuType;
 import edu.alibaba.mpc4j.s2pc.pso.psu.czz24.Czz24CwOprfPsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.gmr21.Gmr21PsuConfig;
+import edu.alibaba.mpc4j.s2pc.pso.psu.iblt.IbltPsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.jsz22.Jsz22SfcPsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.jsz22.Jsz22SfsPsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.krtw19.Krtw19PsuConfig;
@@ -25,6 +26,7 @@ import java.util.Properties;
  * PSU协议配置项工具类。
  *
  * @author Weiran Liu
+ * @author donghai hou
  * @date 2022/02/16
  */
 public class PsuConfigUtils {
@@ -62,6 +64,8 @@ public class PsuConfigUtils {
                 return createJsz22SfsPsuConfig(properties);
             case CZZ24_CW_OPRF:
                 return createCzz24CwOprfPsuConfig();
+            case IBLT:
+                return createIbltPsuConfig();
             default:
                 throw new IllegalArgumentException("Invalid " + PsuType.class.getSimpleName() + ": " + psuType.name());
         }
@@ -115,5 +119,9 @@ public class PsuConfigUtils {
 
     private static Czz24CwOprfPsuConfig createCzz24CwOprfPsuConfig() {
         return new Czz24CwOprfPsuConfig.Builder().build();
+    }
+
+    private static IbltPsuConfig createIbltPsuConfig() {
+        return new IbltPsuConfig.Builder().build();
     }
 }

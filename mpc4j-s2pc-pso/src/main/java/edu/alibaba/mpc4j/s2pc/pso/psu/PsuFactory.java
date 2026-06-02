@@ -10,6 +10,9 @@ import edu.alibaba.mpc4j.s2pc.pso.psu.czz24.Czz24CwOprfPsuServer;
 import edu.alibaba.mpc4j.s2pc.pso.psu.gmr21.Gmr21PsuClient;
 import edu.alibaba.mpc4j.s2pc.pso.psu.gmr21.Gmr21PsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.gmr21.Gmr21PsuServer;
+import edu.alibaba.mpc4j.s2pc.pso.psu.iblt.IbltPsuClient;
+import edu.alibaba.mpc4j.s2pc.pso.psu.iblt.IbltPsuConfig;
+import edu.alibaba.mpc4j.s2pc.pso.psu.iblt.IbltPsuServer;
 import edu.alibaba.mpc4j.s2pc.pso.psu.jsz22.*;
 import edu.alibaba.mpc4j.s2pc.pso.psu.krtw19.*;
 import edu.alibaba.mpc4j.s2pc.pso.psu.zcl23.*;
@@ -18,6 +21,7 @@ import edu.alibaba.mpc4j.s2pc.pso.psu.zcl23.*;
  * PSU factory.
  *
  * @author Weiran Liu
+ * @author donghai hou
  * @date 2022/02/14
  */
 public class PsuFactory implements PtoFactory {
@@ -60,6 +64,10 @@ public class PsuFactory implements PtoFactory {
          * CZZ22
          */
         CZZ24_CW_OPRF,
+        /**
+         * IBLT-based PSU
+         */
+        IBLT,
     }
 
     /**
@@ -87,6 +95,8 @@ public class PsuFactory implements PtoFactory {
                 return new Jsz22SfsPsuServer(serverRpc, clientParty, (Jsz22SfsPsuConfig) config);
             case CZZ24_CW_OPRF:
                 return new Czz24CwOprfPsuServer(serverRpc, clientParty, (Czz24CwOprfPsuConfig) config);
+            case IBLT:
+                return new IbltPsuServer(serverRpc, clientParty, (IbltPsuConfig) config);
             default:
                 throw new IllegalArgumentException("Invalid " + PsuType.class.getSimpleName() + ": " + type.name());
         }
@@ -158,6 +168,8 @@ public class PsuFactory implements PtoFactory {
                 return new Jsz22SfsPsuClient(clientRpc, serverParty, (Jsz22SfsPsuConfig) config);
             case CZZ24_CW_OPRF:
                 return new Czz24CwOprfPsuClient(clientRpc, serverParty, (Czz24CwOprfPsuConfig) config);
+            case IBLT:
+                return new IbltPsuClient(clientRpc, serverParty, (IbltPsuConfig) config);
             default:
                 throw new IllegalArgumentException("Invalid " + PsuType.class.getSimpleName() + ": " + type.name());
         }
